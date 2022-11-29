@@ -14,6 +14,7 @@ export class BaseExceptionsFilter implements ExceptionFilter {
 
     const response = ctx.getResponse<FastifyReply>();
     const request = ctx.getRequest<FastifyRequest>();
+    console.log('exception', exception);
 
     request.log.error(exception);
     response.status(HttpStatus.SERVICE_UNAVAILABLE).send({

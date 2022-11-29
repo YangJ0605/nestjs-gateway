@@ -6,7 +6,11 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { VersioningType, VERSION_NEUTRAL } from '@nestjs/common';
+import {
+  ValidationPipe,
+  VersioningType,
+  VERSION_NEUTRAL,
+} from '@nestjs/common';
 import { generateDocument } from './utils';
 
 // declare const module: any;
@@ -20,6 +24,9 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
 
   app.useGlobalFilters(new BaseExceptionsFilter(), new HttpExceptionFilter());
+
+  // 开启校验
+  app.useGlobalPipes(new ValidationPipe());
 
   app.enableVersioning({
     type: VersioningType.URI,

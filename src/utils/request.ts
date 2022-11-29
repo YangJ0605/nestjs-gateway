@@ -60,7 +60,6 @@ export const methodV = async ({
         },
       })
         .then(({ data, status }) => {
-          console.log('status', status);
           resolve({ data, code: status });
         })
         .catch((error) => {
