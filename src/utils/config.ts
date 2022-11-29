@@ -14,10 +14,16 @@ export const getEnv = () => {
  * 获取yaml文件的配置
  * @returns
  */
-export const getConfig = () => {
+export const getConfig = (type?: string) => {
   const env = getEnv();
   const yamlPath = path.join(process.cwd(), `./.config/.${env}.yaml`);
 
   const file = fs.readFileSync(yamlPath, 'utf-8');
-  return parse(file);
+  const config = parse(file);
+
+  if (type) {
+    return config[type];
+  }
+
+  return config;
 };
