@@ -12,13 +12,19 @@ import {
   VERSION_NEUTRAL,
 } from '@nestjs/common';
 import { generateDocument } from './utils';
+import { FastifyLogger } from './common/logger';
+import fastify from 'fastify';
 
 // declare const module: any;
 
 async function bootstrap() {
+  const fastifyInstance = fastify({
+    logger: FastifyLogger,
+  });
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter(fastifyInstance as any),
   );
 
   app.useGlobalInterceptors(new TransformInterceptor());

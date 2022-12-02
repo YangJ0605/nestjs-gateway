@@ -20,6 +20,7 @@ const redisConfig = getConfig('REDIS_CONFIG');
             port: +redisConfig.port,
           },
           password: redisConfig.auth,
+          ttl: 60 * 60 * 64 * 7,
         });
         return {
           store: {
